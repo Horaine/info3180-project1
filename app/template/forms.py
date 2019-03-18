@@ -8,7 +8,7 @@ class ContactForm(FlaskForm):
     name = StringField('Last Name', validators=[DataRequired()])
     
 class AddUser(FlaskForm):
-    gender = SelectField('Gender :Males, Female')
+    gender = Select('Gender :Males, Female')
     
     email = StringField('Email', validators=[DataRequired(), Email()])
     location = StringField('Location', validators=[DataRequired()])
