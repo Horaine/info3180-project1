@@ -99,6 +99,31 @@ def photo_upload():
 
     flash_errors(photo)
     return render_template('form.html', form=photo)
+    
+    
+@app.route('/add-user', methods=['POST', 'GET'])
+def add_user():
+ if request.method == "POST":
+    db = connect_db()
+    cur = db.cursor()
+    cur.execute('insert into users (firstname, lastname,gender, email, location, biography)
+values (%s, %s)', (request.form['name'],
+request.form['email']))
+ db.commit()
+ flash('New user was successfully added')
+ return redirect(url_for('show_users'))
+ return render_template('form.html')
+ 
+ 
+@app.route('/users')
+def show_users():
+ db = connect_db()
+ cur = db.cursor()
+ cur.execute('select firstname, lastname, gender, location from users order by
+id desc')
+ users = cur.fetchall()
+ return render_template('profile.html',
+users=users)
 
 
 

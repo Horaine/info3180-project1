@@ -1,13 +1,13 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-# Config Values
-# location where file uploads will be stored
-UPLOAD_FOLDER = './app/static/uploads'
-# needed for session security, the flash() method in this case stores the message
-# in a session
-SECRET_KEY = 'Sup3r$3cretkey'
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://yourusername:yourpassword@localhost/databasename'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-from app import views
+from app import views, models
